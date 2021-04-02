@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infopages/models/location.dart';
 import 'package:infopages/models/location_fact.dart';
+import 'package:infopages/styles.dart';
 
 class LocationDetail extends StatelessWidget {
   final Location location;
@@ -11,7 +12,10 @@ class LocationDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(location.name),
+          title: Text(
+            location.name,
+            style: Styles.navBarTitle,
+          ),
         ),
         body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
