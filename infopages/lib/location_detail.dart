@@ -11,36 +11,39 @@ class LocationDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Hello, World!"),
+          title: Text(location.name),
         ),
         body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: _renderFacts(location)));
+            children: _renderBody(context, location)));
   }
 
-  Widget _section(String title, Color color) //private method
-  {
-    return Container(
-      decoration: BoxDecoration(color: color),
-      child: Text(title),
-    );
-  }
-
-  List<Widget> _renderFacts(Location location) {
-    var res = <Widget>[];
+  List<Widget> _renderBody(BuildContext context, Location location) {
+    var res = <Widget>[_bannerImage(location.url, 170.0)];
     for (LocationFact locfact in location.loc_facts) {
-      res.add(_secTitle(locfact.title));
-      res.add(_secText(locfact.text));
+      res.addAll([_secTitle(locfact.title), _secText(locfact.text)]);
     }
     return res;
   }
 
   Widget _secTitle(String text) {
-    return Text(text);
+    return Container(
+        padding: EdgeInsets.fromLTRB(25, 25, 25, 10),
+        child: Text(text,
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 25, color: Colors.black)));
   }
 
   Widget _secText(String text) {
-    return Text(text);
+    return Container(
+        padding: EdgeInsets.fromLTRB(25, 15, 25, 15), child: Text(text));
+  }
+
+  Widget _bannerImage(String url, double height) {
+    return Container(
+      constraints: BoxConstraints.tightFor(height: height),
+      child: Image.network(url, fit: BoxFit.fitWidth),
+    );
   }
 }

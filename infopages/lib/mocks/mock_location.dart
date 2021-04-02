@@ -5,7 +5,7 @@ class MockLocation extends Location {
   static Location FetchAny() {
     return Location(
         name: 'Arashiyama Bamboo Grove, Kyoto, Japan',
-        url: 'https://fluttercrashcourse.com/assets/images/arashiyama@3x.jpg',
+        url: 'https://picsum.photos/200',
         facts: <LocationFact>[
           LocationFact(
               title: 'Summary',
