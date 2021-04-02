@@ -34,14 +34,17 @@ class LocationDetail extends StatelessWidget {
   Widget _secTitle(String text) {
     return Container(
         padding: EdgeInsets.fromLTRB(25, 25, 25, 10),
-        child: Text(text,
-            textAlign: TextAlign.left,
-            style: TextStyle(fontSize: 25, color: Colors.black)));
+        child:
+            Text(text, textAlign: TextAlign.left, style: Styles.headerLarge));
   }
 
   Widget _secText(String text) {
     return Container(
-        padding: EdgeInsets.fromLTRB(25, 15, 25, 15), child: Text(text));
+        padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
+        child: Text(
+          text,
+          style: Styles.textDefault,
+        ));
   }
 
   Widget _bannerImage(String url, double height) {
