@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:infopages/location_list.dart';
-import 'package:infopages/mocks/mock_location.dart';
+import 'package:infopages/app.dart';
 
 void main() {
-  return runApp(MaterialApp(home: LocationList(MockLocation.fetchAll())));
+  return runApp(MaterialApp(home: App()));
 }

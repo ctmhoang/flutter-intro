@@ -20,10 +20,11 @@ class LocationDetail extends StatelessWidget {
             style: Styles.navBarTitle,
           ),
         ),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: _renderBody(context, location)));
+        body: SingleChildScrollView(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: _renderBody(context, location))));
   }
 
   List<Widget> _renderBody(BuildContext context, Location location) {
