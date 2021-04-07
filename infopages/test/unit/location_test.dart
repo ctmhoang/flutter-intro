@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:test/test.dart';
 import '../../lib/models/location.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('test location deserialization', () {
