@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:infopages/location_detail.dart';
@@ -11,6 +13,7 @@ class LocationList extends StatefulWidget {
 
 class _LocationListState extends State<LocationList> {
   List<Location> locations = [];
+  bool loading = false;
 
   @override
   void initState() {
@@ -18,29 +21,56 @@ class _LocationListState extends State<LocationList> {
     loadData();
   }
 
-  loadData() async {
-    final locations = await Location.fetchAll();
+  Future<void> loadData() async {
     if (this.mounted) {
-      // check is mounted
       setState(() {
-        this.locations = locations;
+        this.loading = true;
       });
+      Timer(Duration(microseconds: 3000), () async {
+        final locations = await Location.fetchAll();
+        setState(() {
+          this.locations = locations;
+          this.loading = false;
+        });
+      });
+      // check is mounted
+
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-        'Locations',
-        style: Styles.navBarTitle,
-      )),
-      body: ListView.builder(
-        itemCount: this.locations.length,
-        itemBuilder: _listViewItemBuilder,
-      ),
+        appBar: AppBar(
+            title: Text(
+          'Locations',
+          style: Styles.navBarTitle,
+        )),
+        body: RefreshIndicator(
+            onRefresh: loadData,
+            child: Column(
+              children: [
+                renderProgressBar(context),
+                Expanded(child: renderListView(context))
+              ],
+            )));
+  }
+
+  Widget renderListView(BuildContext context) {
+    return ListView.builder(
+      itemCount: this.locations.length,
+      itemBuilder: _listViewItemBuilder,
     );
+  }
+
+  Widget renderProgressBar(BuildContext context) {
+    return (this.loading
+        ? LinearProgressIndicator(
+            value: 0.1,
+            backgroundColor: Colors.white,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+          )
+        : Container());
   }
 
   Widget _listViewItemBuilder(BuildContext context, int index) {
