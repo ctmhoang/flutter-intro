@@ -16,8 +16,9 @@ class Styles {
   );
   static final headerLarge = TextStyle(
     fontFamily: _fontNameDefault,
-    fontSize: _textSizeLarge,
-    color: _textColorStrong,
+    fontWeight: FontWeight.w600,
+    fontSize: _textSizeDefault,
+    color: _textColorDefault,
   );
   static final textDefault = TextStyle(
     fontFamily: _fontNameDefault,
