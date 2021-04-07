@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:infopages/components/default_app_bar.dart';
 import 'package:infopages/models/location.dart';
 import 'package:infopages/models/location_fact.dart';
 import 'package:infopages/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'components/banner_image.dart';
 import 'components/location_tile.dart';
 
 const BannerImageHeight = 300.0;
@@ -44,12 +46,7 @@ class _LocationDetailState extends State<LocationDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            location.name,
-            style: Styles.navBarTitle,
-          ),
-        ),
+        appBar: DefaultAppBar(),
         body: Stack(children: [
           _renderBody(context, location),
           _renderFooter(context, location)
@@ -58,12 +55,13 @@ class _LocationDetailState extends State<LocationDetail> {
 
   Widget _renderBody(BuildContext context, Location location) {
     var res = <Widget>[
-      _bannerImage(location.url, BannerImageHeight),
+      BannerImage(url: location.url, height: BannerImageHeight),
       _renderHeader()
     ];
     for (LocationFact locfact in location.facts) {
       res.addAll([_secTitle(locfact.title), _secText(locfact.text)]);
     }
+    res.add(_renderBottomSpacer());
     return SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -130,18 +128,7 @@ class _LocationDetailState extends State<LocationDetail> {
         ));
   }
 
-  Widget _bannerImage(String url, double height) {
-    Image image;
-    try {
-      if (url.isNotEmpty) {
-        image = Image.network(url, fit: BoxFit.fitWidth);
-      }
-    } catch (e) {
-      print("could not load image $url");
-    }
-    return Container(
-      constraints: BoxConstraints.tightFor(height: height),
-      child: image,
-    );
+  Widget _renderBottomSpacer() {
+    return Container(height: FooterHeight);
   }
 }
