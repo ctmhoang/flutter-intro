@@ -33,7 +33,6 @@ class _LocationListState extends State<LocationList> {
         final locations = await Location.fetchAll();
         setState(() {
           this.locations = locations;
-          print(locations[0]);
           this.loading = false;
         });
       });
