@@ -14,14 +14,25 @@ class Location {
   final int id;
   final String name;
   final String url;
+  final String userItinerarySummary;
+  final String tourPackageName;
   final List<LocationFact> facts;
 
-  Location({this.id, this.name, this.url, this.facts}); // {} optional params
+  Location(
+      {this.id,
+      this.name,
+      this.url,
+      this.userItinerarySummary,
+      this.tourPackageName,
+      this.facts});
+  // {} optional params
 
   Location.blank()
       : id = 0,
         name = '',
         url = '',
+        userItinerarySummary = '',
+        tourPackageName = '',
         facts = [];
 
   factory Location.fromJson(Map<String, dynamic> json) =>
@@ -56,5 +67,10 @@ class Location {
 
   static Future<Location> fetchAny() async {
     return Location.fetchByID(1);
+  }
+
+  @override
+  String toString() {
+    return ' id : ${this.id} name: ${this.name}  url: ${this.url} sum: ${this.userItinerarySummary} tour: ${this.tourPackageName} fact: ${this.facts}';
   }
 }

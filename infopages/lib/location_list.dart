@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:infopages/components/location_tile.dart';
 import 'package:infopages/location_detail.dart';
 import 'package:infopages/models/location.dart';
 import 'package:infopages/styles.dart';
+
+const ListItemHeight = 245.0;
 
 class LocationList extends StatefulWidget {
   @override
@@ -30,6 +33,7 @@ class _LocationListState extends State<LocationList> {
         final locations = await Location.fetchAll();
         setState(() {
           this.locations = locations;
+          print(locations[0]);
           this.loading = false;
         });
       });
@@ -74,36 +78,62 @@ class _LocationListState extends State<LocationList> {
   }
 
   Widget _listViewItemBuilder(BuildContext context, int index) {
-    return ListTile(
-      contentPadding: EdgeInsets.all(10),
-      leading: _itemThumbnail(locations[index]),
-      title: _itemTitle(locations[index]),
+    final location = this.locations[index];
+    return InkWell(
+      child: Ink(
+        child: Stack(
+          children: [
+            _tileImage(
+                location.url,
+                MediaQuery.of(context).size.width,
+                // get With of current Context
+                ListItemHeight),
+            _tileFooter(location),
+          ],
+        ),
+        height: ListItemHeight,
+      ),
       onTap: () => _navigateToLocationDetail(context, locations[index].id),
+    );
+  }
+
+  Widget _tileFooter(Location location) {
+    final info = LocationTile(
+      location: location,
+      darkTheme: true,
+    );
+    final overlay = Flexible(
+        child: Container(
+      padding: EdgeInsets.symmetric(
+          vertical: 5, horizontal: Styles.horizontalPaddingDefault),
+      decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
+      child: info,
+    ));
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [overlay],
+    );
+  }
+
+  Widget _tileImage(String url, double width, double height) {
+    Image image;
+    try {
+      image = Image.network(
+        url,
+        fit: BoxFit.cover,
+      );
+    } catch (e) {
+      print("could not load image $url");
+    }
+    return Container(
+      constraints: BoxConstraints.expand(),
+      child: image,
     );
   }
 
   void _navigateToLocationDetail(BuildContext context, int locationIdx) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => LocationDetail(locationIdx)));
-  }
-
-  Widget _itemThumbnail(Location location) {
-    Image image;
-    try {
-      image = Image.network(location.url, fit: BoxFit.fitWidth);
-    } catch (e) {
-      print("could not load image ${location.url}");
-    }
-    return Container(
-      constraints: BoxConstraints.tightFor(width: 100),
-      child: image,
-    );
-  }
-
-  Widget _itemTitle(Location location) {
-    return Text(
-      '${location.name}', //string interpolation
-      style: Styles.textDefault,
-    );
   }
 }
