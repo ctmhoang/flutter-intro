@@ -4,10 +4,29 @@ import 'package:infopages/location_detail.dart';
 import 'package:infopages/models/location.dart';
 import 'package:infopages/styles.dart';
 
-class LocationList extends StatelessWidget {
-  final List<Location> locations;
+class LocationList extends StatefulWidget {
+  @override
+  createState() => _LocationListState();
+}
 
-  LocationList(this.locations);
+class _LocationListState extends State<LocationList> {
+  List<Location> locations = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    final locations = await Location.fetchAll();
+    if (this.mounted) {
+      // check is mounted
+      setState(() {
+        this.locations = locations;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +37,7 @@ class LocationList extends StatelessWidget {
         style: Styles.navBarTitle,
       )),
       body: ListView.builder(
-        itemCount: locations.length,
+        itemCount: this.locations.length,
         itemBuilder: _listViewItemBuilder,
       ),
     );
@@ -29,7 +48,7 @@ class LocationList extends StatelessWidget {
       contentPadding: EdgeInsets.all(10),
       leading: _itemThumbnail(locations[index]),
       title: _itemTitle(locations[index]),
-      onTap: () => _navigateToLocationDetail(context, index),
+      onTap: () => _navigateToLocationDetail(context, locations[index].id),
     );
   }
 
@@ -39,12 +58,15 @@ class LocationList extends StatelessWidget {
   }
 
   Widget _itemThumbnail(Location location) {
+    Image image;
+    try {
+      image = Image.network(location.url, fit: BoxFit.fitWidth);
+    } catch (e) {
+      print("could not load image ${location.url}");
+    }
     return Container(
       constraints: BoxConstraints.tightFor(width: 100),
-      child: Image.network(
-        location.url,
-        fit: BoxFit.fitWidth,
-      ),
+      child: image,
     );
   }
 
