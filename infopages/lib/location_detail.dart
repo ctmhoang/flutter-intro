@@ -29,7 +29,7 @@ class LocationDetail extends StatelessWidget {
 
   List<Widget> _renderBody(BuildContext context, Location location) {
     var res = <Widget>[_bannerImage(location.url, 170.0)];
-    for (LocationFact locfact in location.loc_facts) {
+    for (LocationFact locfact in location.facts) {
       res.addAll([_secTitle(locfact.title), _secText(locfact.text)]);
     }
     return res;

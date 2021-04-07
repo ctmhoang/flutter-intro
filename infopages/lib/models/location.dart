@@ -8,12 +8,10 @@ part 'location.g.dart';
 class Location {
   final String name;
   final String url;
-  final List<LocationFact> _facts;
+  final List<LocationFact> facts;
 
-  Location({this.name, this.url, List<LocationFact> facts})
-      : _facts = facts; // {} optional params
+  Location({this.name, this.url, this.facts}); // {} optional params
 
-  List<LocationFact> get loc_facts => _facts;
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
 }
