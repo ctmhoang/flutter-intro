@@ -5,8 +5,8 @@ import 'package:infopages/models/location_fact.dart';
 import 'package:infopages/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'components/banner_image.dart';
-import 'components/location_tile.dart';
+import 'package:infopages/components/banner_image.dart';
+import 'package:infopages/components/location_tile.dart';
 
 const BannerImageHeight = 300.0;
 const BodyVerticalPadding = 20.0;
@@ -93,11 +93,15 @@ class _LocationDetailState extends State<LocationDetail> {
   }
 
   Widget _renderBookButton() {
-    return FlatButton(
-      color: Styles.accentColor,
-      textColor: Styles.textColorBright,
+    return TextButton(
+      style: TextButton.styleFrom(
+          backgroundColor: Styles.accentColor,
+          textStyle: TextStyle(
+            color: Styles.textColorBright,
+          )),
       onPressed: _handleBookPress,
       child: Text('Book'.toUpperCase(), style: Styles.textCTAButton),
+      autofocus: true,
     );
   }
 

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:infopages/components/default_app_bar.dart';
 import 'package:infopages/components/location_tile.dart';
-import 'package:infopages/location_detail.dart';
+import 'package:infopages/screens/location_detail.dart';
 import 'package:infopages/models/location.dart';
 import 'package:infopages/styles.dart';
 
-import 'components/banner_image.dart';
+import 'package:infopages/components//banner_image.dart';
 
 const ListItemHeight = 245.0;
 

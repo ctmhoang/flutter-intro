@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'location_list.dart';
+import 'package:infopages/screens/location_list.dart';
 
 class App extends StatelessWidget {
   @override

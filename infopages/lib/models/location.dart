@@ -47,8 +47,8 @@ class Location {
       throw (resp.body);
     }
     List<Location> list = [];
-    for (var jsonItem in json.decode(resp.body)) {
-      list.add(Location.fromJson(jsonItem));
+    for (int i = 1; i <= 4; i++) {
+      list.add(await fetchByID(i));
     }
     return list;
   }
