@@ -66,6 +66,15 @@
 
 * Align
 
+* TabBar
+
+  - Items
+  - TabBuilder
+
+* NavigationBar
+
+* Switch
+
 # Check platform
 
 - TargetPlatform.android
@@ -86,7 +95,11 @@
 ## Dialog
 
 - Simple Diaglog
+
   - ContentPadding
+
+- ActionSheet
+- ShowModalPopup
 
 ## Stateful
 
@@ -107,6 +120,7 @@
 - Static of method
 
 - FocusScopec
+- FittedBox
 
 ## keys
 
@@ -115,3 +129,78 @@
 - UniqueKey (distinct)
 - PageStoreKey (Scroll)
 - GlobalKey
+
+## Web_view
+
+- Constructor
+  - Initial URL
+  - JavascriptMode
+  - OnWebViewCreated
+
+* Controller
+
+* Completer
+* FutureBuilder
+
+  - completer.future | completer.isCompleted
+
+* gestureRecognizers
+
+* PageController | PageView
+
+* Hero
+
+# Async
+
+- Isolate
+  - spawn
+
+* Compute func
+
+## Future
+
+- then
+- catchError
+
+  - test
+
+- FutureBuilder
+
+- whenComplete
+- value
+- delayed
+- Duration
+
+## Stream
+
+- listen
+- onCancle
+- onDone
+- cancleOnCancle
+- asBroadCastStream
+
+* map
+* where (filter)
+* distinct
+
+### Stream Controller
+
+- sink
+  - add
+
+### Subscription
+
+- pause
+- resume
+- cancle
+
+### Timer
+
+- periodic
+
+- TRy Catch On Fianlly
+
+## Generator
+
+- sync\* yield
+- yeild\*
