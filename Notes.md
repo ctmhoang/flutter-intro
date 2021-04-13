@@ -204,3 +204,81 @@
 
 - sync\* yield
 - yeild\*
+
+## Animation
+
+- AnimatedAlign
+- AnimatedContainer
+- AnimatedDefaultTextStyle
+- AnimatedOpacity
+- AnimatedPadding
+- AnimatedPhysicalModel
+- AnimatedPositioned
+- AnimatedPositionedDirectional
+- AnimatedSize
+- AnimatedThemeSize
+
+Old -> New Interpolation
+
+### Props
+
+- gradient RadialGradient radius
+  - colors
+  - stops
+- duration
+- curve
+
+### TweenAnimationBuilder
+
+- duration
+- child
+- tween Tween<>
+- builder(\_,double va, \_\_)
+  - Transform
+- ColorFilter
+- offset
+
+- static
+- Slider.adaptive
+- Color.lerp
+-
+
+### Transtion Widget
+
+- SizeTransition
+- FadeTransition
+- AlignTransition
+- ScaleTransition
+- SlideTransition
+- RotationTransition
+  - child
+  - alignment: (point to rotate around)
+  - turns: Animation<double> get AnimationController -> StatefulWidget -> initState -> dispose
+    - duration
+    - vsync ref to objs to notify changes `with SingleTickerProviderStateMixin`
+    - repeat()
+    * controller.stop..repeat..isAnimating..animateTo..fling
+
+* TimeStopper
+
+- PositionedTransition
+- DecoratedTransition
+- DefaultTextStyleTransition
+- RelativePositionedTransition
+- StatusTransitionWidget
+
+## AnimatedBuilder & AnimatedWidget
+
+- ClipPath
+
+- AnimatedBuilder(\_,\_\_)
+
+- Ticker
+
+IntTween
+
+## Pro
+
+ChangeNotifier
+ChangeNotifierProvider
+Co
