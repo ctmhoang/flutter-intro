@@ -18,6 +18,11 @@ class NoteCollection extends ChangeNotifier {
     notifyListeners();
   }
 
+  deleteNote(Note note) {
+    _notes.remove(note);
+    notifyListeners();
+  }
+
   Note getNote(String id) {
     return _notes.where((element) => element.id == id).first;
   }

@@ -23,7 +23,8 @@ class NoteScreenState extends State<NoteScreen> {
     super.initState();
     _controller.text = body;
     _controller.addListener(() {
-      Provider.of<NoteCollection>(context).updateNote(id, _controller.text);
+      Provider.of<NoteCollection>(context, listen: false)
+          .updateNote(id, _controller.text);
     });
   }
 
@@ -38,19 +39,41 @@ class NoteScreenState extends State<NoteScreen> {
       ),
       body: Column(
         children: [
-          /*  Expanded(
-              child: Container(
-            child: TextField(
-              controller: _controller,
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              expands: true,
-              decoration: InputDecoration(
-                  hintText: 'Start writing your note here',
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(20)),
+          Expanded(
+            child: Container(
+              child: TextField(
+                controller: _controller,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                expands: true,
+                decoration: InputDecoration(
+                    hintText: 'Start writing your note here',
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(20)),
+              ),
             ),
-          )) */
+          ),
+          ConstrainedBox(
+            constraints: BoxConstraints(minWidth: double.infinity),
+            child: Container(
+              child: Consumer<NoteCollection>(builder: (_, notes, __) {
+                var note = notes.getNote(id);
+
+                return Row(
+                  children: [
+                    Text(
+                      '${note.body.length} characters',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text('${note.body.split(RegExp(r'\W+')).length} words')
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                );
+              }),
+              decoration: BoxDecoration(color: Colors.blue),
+              padding: EdgeInsets.all(20),
+            ),
+          )
         ],
       ),
     );

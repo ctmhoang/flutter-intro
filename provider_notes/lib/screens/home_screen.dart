@@ -14,7 +14,9 @@ class HomeScreen extends StatelessWidget {
 
     return new Scaffold(
       appBar: AppBar(
-        title: Text('Notes'),
+        title: Consumer<NoteCollection>(
+          builder: (_, notes, __) => Text('Notes (${notes.allNotes.length})'),
+        ),
       ),
       body: _buildNotesList(collection, context),
       floatingActionButton: FloatingActionButton(
@@ -42,10 +44,18 @@ class HomeScreen extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (ctx, idx) {
         Note note = allNotes[idx];
-        return ListTile(
-          title: Text(note.body),
-          onTap: _navigateToNoteScreen(context, note),
-        );
+        return Dismissible(
+            key: ValueKey(note.id),
+            background: Container(
+              color: Colors.red,
+            ),
+            onDismissed: (_) {
+              collection.deleteNote(note);
+            },
+            child: ListTile(
+              title: Text(note.noteBody),
+              onTap: () => _navigateToNoteScreen(context, note),
+            ));
       },
       itemCount: allNotes.length,
     );
