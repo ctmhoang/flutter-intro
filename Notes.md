@@ -73,6 +73,11 @@
 
 * NavigationBar
 
+* SafeArea
+* PageView
+* ClipRRect
+* IgnorePoinnter
+* Transform.roate
 * Switch
 
 # Check platform
